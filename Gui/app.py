@@ -1,20 +1,41 @@
 import tkinter as tk
+from tkinter import ttk
+from tkinter import filedialog as fd
+from tkinter.messagebox import showinfo
 
-# Fenster erstellen
+# create the root window
 root = tk.Tk()
-root.title("Tkinter Demo")
-root.geometry("300x200")
+root.title('Tkinter Open File Dialog')
+root.resizable(False, False)
+root.geometry('300x150')
 
-# Label
-label = tk.Label(root, text="Hallo, Tkinter!", font=("Arial", 14))
-label.pack(pady=20)
 
-# Button mit Aktion
-def klicken():
-    label.config(text="Button gedrückt!")
+def select_file():
+    filetypes = (
+        ('text files', '*.jpg'),
+        ('All files', '*.*')
+    )
 
-button = tk.Button(root, text="Klick mich", command=klicken)
-button.pack()
+    filename = fd.askopenfilename(
+        title='Open a file',
+        initialdir='/',
+        filetypes=filetypes)
 
-# Fenster starten
+    showinfo(
+        title='Selected File',
+        message=filename
+    )
+
+
+# open button
+open_button = ttk.Button(
+    root,
+    text='Open a File',
+    command=select_file
+)
+
+open_button.pack(expand=True)
+
+
+# run the application
 root.mainloop()
